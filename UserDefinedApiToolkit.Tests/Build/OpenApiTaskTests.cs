@@ -59,6 +59,13 @@
 			};
 		}
 
+		private static string GetInfoSection(string content)
+		{
+			var infoStart = content.IndexOf("\"info\"", StringComparison.Ordinal);
+			var serversStart = content.IndexOf("\"servers\"", infoStart, StringComparison.Ordinal);
+			return content.Substring(infoStart, serversStart - infoStart);
+		}
+
 		[TestMethod]
 		public void Execute_ValidControllerAssembly_YamlFormat_GeneratesOpenApiFileWithControllerRoute()
 		{
@@ -145,11 +152,17 @@
 			info.Should().NotContain("\"description\"");
 		}
 
-		private static string GetInfoSection(string content)
+		[TestMethod]
+		public void Execute_WithoutDescriptionInYaml_OmitsDescriptionFromDocumentInfo()
 		{
-			var infoStart = content.IndexOf("\"info\"", StringComparison.Ordinal);
-			var serversStart = content.IndexOf("\"servers\"", infoStart, StringComparison.Ordinal);
-			return content.Substring(infoStart, serversStart - infoStart);
+			var task = CreateTask(_outputPath, "yaml");
+
+			task.Execute().Should().BeTrue();
+
+			var content = File.ReadAllText(Path.Combine(_outputPath, "openapi", "openapi.yaml"));
+			var infoEnd = content.IndexOf("servers:", StringComparison.Ordinal);
+			var info = content.Substring(0, infoEnd);
+			info.Should().NotContain("description:");
 		}
 
 		[TestMethod]
