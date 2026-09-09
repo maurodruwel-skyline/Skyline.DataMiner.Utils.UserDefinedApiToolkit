@@ -115,9 +115,10 @@
 			task.Execute().Should().BeTrue();
 
 			var content = File.ReadAllText(Path.Combine(_outputPath, "openapi", "openapi.json"));
-			content.Should().Contain("\"description\"");
-			content.Should().Contain("This is a **global** description.");
-			content.Should().Contain("\\nSecond line with \\\"quotes\\\" and Unicode: café.");
+			var info = GetInfoSection(content);
+			info.Should().Contain("\"description\"");
+			info.Should().Contain("This is a **global** description.");
+			info.Should().Contain("\\nSecond line with \\\"quotes\\\" and Unicode: café.");
 		}
 
 		[TestMethod]
@@ -140,10 +141,15 @@
 			task.Execute().Should().BeTrue();
 
 			var content = File.ReadAllText(Path.Combine(_outputPath, "openapi", "openapi.json"));
+			var info = GetInfoSection(content);
+			info.Should().NotContain("\"description\"");
+		}
+
+		private static string GetInfoSection(string content)
+		{
 			var infoStart = content.IndexOf("\"info\"", StringComparison.Ordinal);
 			var serversStart = content.IndexOf("\"servers\"", infoStart, StringComparison.Ordinal);
-			var info = content.Substring(infoStart, serversStart - infoStart);
-			info.Should().NotContain("\"description\"");
+			return content.Substring(infoStart, serversStart - infoStart);
 		}
 
 		[TestMethod]

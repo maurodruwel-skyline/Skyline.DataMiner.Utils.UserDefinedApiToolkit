@@ -28,6 +28,19 @@ Configuration properties:
 | `GenerateDocumentationFile` | Project setting | When enabled, XML comments enrich the generated document. |
 
 The generated file is written to the build output directory as `openapi.yaml` or `openapi.json`.
+When `OpenApiInfoDescription` is configured, the document contains the value in its top-level
+`info` object:
+
+```json
+{
+	"info": {
+		"title": "Items API",
+		"version": "1.0.0",
+		"description": "This is a **global description** of the API."
+	}
+}
+```
+
 `[Consumes]`, `[Produces]`, and `[ProducesResponseType]` describe request and response metadata in
 OpenAPI; they do not change runtime serialization or request handling.
 

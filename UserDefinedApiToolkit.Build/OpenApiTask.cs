@@ -79,8 +79,8 @@
 					 controllers,
 					 ProjectName,
 					 ProjectVersion,
-					 logger,
-					 ProjectDescription);
+					 ProjectDescription,
+					 logger);
 
 				var (fileName, content) = OpenApiProjectGenerator.FormatDocument(doc, Format);
 
