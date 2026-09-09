@@ -9,6 +9,7 @@
 			<PropertyGroup>
 			  <GenerateOpenApi>True</GenerateOpenApi>
 			  <OpenApiFormat>yaml</OpenApiFormat> (optional: "yaml", the default, or "json")
+			  <OpenApiInfoDescription>A description of the API.</OpenApiInfoDescription> (optional)
 			</PropertyGroup>
 
 		The task assembly (and its own runtime dependencies, e.g. Microsoft.OpenApi) are bundled
@@ -27,6 +28,7 @@
 		<OpenApiFormat Condition="'$(OpenApiFormat)' == ''">yaml</OpenApiFormat>
 		<OpenApiInfoTitle Condition="'$(OpenApiInfoTitle)' == ''">$(MSBuildProjectName)</OpenApiInfoTitle>
 		<OpenApiInfoVersion Condition="'$(OpenApiInfoVersion)' == ''">$(Version)</OpenApiInfoVersion>
+		<OpenApiInfoDescription Condition="'$(OpenApiInfoDescription)' == ''"></OpenApiInfoDescription>
 		<_UserDefinedApiToolkitInstallerFileName>$(MSBuildProjectName).udapi.json</_UserDefinedApiToolkitInstallerFileName>
 	</PropertyGroup>
 
@@ -63,6 +65,7 @@
 			OutputPath="$(OutDir)"
 			ProjectName="$(OpenApiInfoTitle)"
 			ProjectVersion="$(OpenApiInfoVersion)"
+			ProjectDescription="$(OpenApiInfoDescription)"
 			References="@(_UserDefinedApiReferences)"
 			Format="$(OpenApiFormat)"
 			DocumentationFile="$(_UserDefinedApiOpenApiDocFile)" />

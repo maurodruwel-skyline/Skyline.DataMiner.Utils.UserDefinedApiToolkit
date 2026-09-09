@@ -35,6 +35,11 @@
 		public string? ProjectVersion { get; set; }
 
 		/// <summary>
+		/// Gets or sets the optional description of the OpenAPI document.
+		/// </summary>
+		public string? ProjectDescription { get; set; }
+
+		/// <summary>
 		/// Gets or sets the assembly references required for loading types during OpenAPI generation.
 		/// </summary>
 		[Required]
@@ -74,7 +79,8 @@
 					 controllers,
 					 ProjectName,
 					 ProjectVersion,
-					 logger);
+					 logger,
+					 ProjectDescription);
 
 				var (fileName, content) = OpenApiProjectGenerator.FormatDocument(doc, Format);
 

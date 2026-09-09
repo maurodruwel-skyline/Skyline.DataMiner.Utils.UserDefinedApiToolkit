@@ -109,10 +109,14 @@ Add the following to your API project's `.csproj` to generate an `openapi.yaml` 
 <PropertyGroup>
   <GenerateOpenApi>True</GenerateOpenApi>
   <OpenApiFormat>yaml</OpenApiFormat> <!-- yaml (default) or json -->
+  <OpenApiInfoTitle>Sample User API</OpenApiInfoTitle>
+  <OpenApiInfoVersion>1.0.0</OpenApiInfoVersion>
+  <OpenApiInfoDescription>This is a **global description** of the API.</OpenApiInfoDescription>
 </PropertyGroup>
 ```
 
 The generated document includes every controller's routes, HTTP methods, request/response schemas, and (when `GenerateDocumentationFile` is enabled) the XML doc comments on your actions.
+`OpenApiInfoDescription` is optional; when configured, it is emitted as the top-level `info.description` value.
 
 ### Path variables
 
@@ -191,4 +195,3 @@ A unique catalog of 7000+ connectors already exists. In addition, you can levera
 ## About Skyline Communications
 
 At Skyline Communications, we deal in world-class solutions that are deployed by leading companies around the globe. Check out [our proven track record](https://aka.dataminer.services/about-skyline) and see how we make our customers' lives easier by empowering them to take their operations to the next level.
-

@@ -11,6 +11,7 @@ consumer project builds. Add these properties to the consuming `.csproj`:
 	<OpenApiFormat>yaml</OpenApiFormat>
 	<OpenApiInfoTitle>Items API</OpenApiInfoTitle>
 	<OpenApiInfoVersion>1.0.0</OpenApiInfoVersion>
+	<OpenApiInfoDescription>This is a **global description** of the API.</OpenApiInfoDescription>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 </PropertyGroup>
 ```
@@ -23,6 +24,7 @@ Configuration properties:
 | `OpenApiFormat` | `yaml` | Output format; `yaml` or `json`. |
 | `OpenApiInfoTitle` | Project name | API title in the generated document. |
 | `OpenApiInfoVersion` | `$(Version)` | API version in the generated document. |
+| `OpenApiInfoDescription` | Empty | Optional global API description in the generated document. Markdown is preserved. |
 | `GenerateDocumentationFile` | Project setting | When enabled, XML comments enrich the generated document. |
 
 The generated file is written to the build output directory as `openapi.yaml` or `openapi.json`.

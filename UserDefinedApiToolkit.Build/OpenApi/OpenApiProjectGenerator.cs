@@ -26,16 +26,22 @@
 		/// <param name="projectName">Used as the OpenAPI document title.</param>
 		/// <param name="projectVersion">Used as the OpenAPI document version.</param>
 		/// <param name="log">Optional logger used to report progress and diagnostics.</param>
+		/// <param name="projectDescription">Optional description of the OpenAPI document.</param>
 		/// <returns>The generated <see cref="OpenApiDocument"/>.</returns>
 		public static OpenApiDocument CreateDocument(
 			IList<ControllerUnit> controllers,
 			string? projectName,
 			string? projectVersion,
-			IBuildLogger? log = null)
+			IBuildLogger? log = null,
+			string? projectDescription = null)
 		{
 			var doc = OpenApiGenerator.Create(controllers, log);
 			doc.Info.Title = projectName ?? "User Defined API";
 			doc.Info.Version = projectVersion ?? "1.0.0";
+			if (!string.IsNullOrWhiteSpace(projectDescription))
+			{
+				doc.Info.Description = projectDescription;
+			}
 
 			return doc;
 		}
